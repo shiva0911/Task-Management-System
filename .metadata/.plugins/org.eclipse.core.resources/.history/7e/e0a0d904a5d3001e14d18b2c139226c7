@@ -1,0 +1,29 @@
+# Server configuration
+server.port=5000
+
+# Application name
+spring.application.name=API-GATEWAY
+
+#spring.cloud.gateway.default-filters=DedupeResponseHeader=Access-Control-Allow-Credentials,AddResponseHeader=Access-Control-Allow-Origin
+
+# Gateway routes configuration
+spring.cloud.gateway.routes[0].id=USER-SERVICE
+spring.cloud.gateway.routes[0].uri=lb://USER-SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/auth/**,/api/user/**
+
+spring.cloud.gateway.routes[1].id=TASK-SERVICE
+spring.cloud.gateway.routes[1].uri=lb://TASK-SERVICE
+spring.cloud.gateway.routes[1].predicates[0]=Path=/api/tasks/**,/tasks/**,/api/users/**
+
+spring.cloud.gateway.routes[2].id=SUBMISSION-SERVICE
+spring.cloud.gateway.routes[2].uri=lb://SUBMISSION-SERVICE
+spring.cloud.gateway.routes[2].predicates[0]=Path=/api/submit/**,/submit/**
+
+# CORS Configuration
+spring.cloud.gateway.cors.configurations[0].allowedOrigins=http://localhost:3000
+spring.cloud.gateway.cors.configurations[0].allowedMethods=*
+spring.cloud.gateway.cors.configurations[0].allowedHeaders=*
+# Eureka client configuration
+eureka.instance.prefer-ip-address=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8770/eureka/

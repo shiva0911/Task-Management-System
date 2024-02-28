@@ -1,0 +1,43 @@
+
+# Server Configuration
+server.port=5000
+
+# Application Name
+spring.application.name=API-GATEWAY
+
+# Gateway Routes Configuration
+spring.cloud.gateway.routes:
+  - id: USER-SERVICE
+    uri: lb://USER-SERVICE
+    predicates:
+      - Path=/auth/**,/api/user/**
+    filters:
+      - AddResponseHeader=Content-Type,application/json
+  - id: TASK-SERVICE
+    uri: lb://TASK-SERVICE
+    predicates:
+      - Path=/api/tasks/**,/tasks/**,/api/users/**
+    filters:
+      - AddResponseHeader=Content-Type,application/json
+  - id: SUBMISSION-SERVICE
+    uri: lb://SUBMISSION-SERVICE
+    predicates:
+      - Path=/api/submit/**,/submit/**
+    filters:
+      - AddResponseHeader=Content-Type,application/json
+
+# CORS Configuration (Optional)
+# Configure CORS settings for specific origins, methods, and headers as needed
+
+# Eureka Client Configuration
+eureka.instance.prefer-ip-address=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8770/eureka/
+
+# Logging Configuration (Optional)
+# Uncomment and configure logging levels as desired
+# logging.level.org.springframework.cloud.gateway=DEBUG
+# logging.level.com.netflix.discovery=DEBUG
+
+# Additional Properties (Optional)
+# Add any other configuration options specific to your application

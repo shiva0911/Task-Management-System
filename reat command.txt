@@ -1,0 +1,12 @@
+npx create-react-app my-task-management
+cd  my-task-management
+
+npm install @mui/material @emotion/react @emotion/styled
+ npm install -D tailwindcss
+npx tailwindcss init     
+npm i react-router-dom
+npm start
+npm install @reduxjs/toolkit
+npm install react-redux
+npm i redux-thunk
+npm i axios
